@@ -342,6 +342,14 @@ span.continentCount, span#worldCount
  /******* Ajax *******
 **********************/
 
+
+.loading 
+{
+     z-index:1001; 
+     position: absolute;
+     padding-top: 40px;
+}
+
 #ajax-message .loading 
 {
     background: rgba(0, 0, 0, 0.8);
@@ -350,6 +358,7 @@ span.continentCount, span#worldCount
     height: 100px;
     margin: 0 auto;
     top: 460px;
+    z-index:8000;
     position: absolute;
     -moz-border-radius: 6px;
     -webkit-border-radius: 6px;

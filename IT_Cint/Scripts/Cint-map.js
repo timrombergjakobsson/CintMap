@@ -33,28 +33,29 @@ function initializeMap() {
     .animate({ opacity: 2 }, "slow", function () { })
     });
 
+
+
+$("#accordion li").click(function () {
+    var country = $(this).text();
+    country = country.replace(/\d+/g, '');
+    zoomToCountry(country);
+});
+
+$("#accordion h3").click(function () {
+    var continent = $(this).children().text();
+    continent = continent.replace(/\d+/g, '');
+    zoomToContinent(continent);
+});
+
+$("#maxZoomMap").click(function () {
+    myLatlng = new google.maps.LatLng(30, 0);
+    map.setZoom(1);
+    map.setCenter(myLatlng);
+})
+
 }
 
-    $("#accordion li").click(function () {
-        var country = $(this).text();
-        country = country.replace(/\d+/g, '');
-        zoomToCountry(country);
-    });
 
-    $("#accordion h3").click(function () {
-        var continent = $(this).children().text();
-        continent = continent.replace(/\d+/g, '');
-        zoomToContinent(continent);
-    });
-
-    $("#maxZoomMap").click(function () {
-        myLatlng = new google.maps.LatLng(30, 0);
-        map.setZoom(1);
-        map.setCenter(myLatlng);
-    })
-
-
-  
 function zoomToContinent(country) {
     var newLatLng;
     var zoom;
@@ -149,7 +150,7 @@ function getCountryCount() {
         } else {
             $("#accordion span").not('.ui-icon').fadeOut(5000);
             $("#worldCount").fadeOut(5000);
-            $("p#feedback").addClass('active').text("No respondents came online in the past 10 minutes").fadeIn(1000);
+            $("#feedback").addClass('active').text("No respondents came online in the past 10 minutes").fadeIn(1000);
         }
     });
 }
@@ -169,7 +170,7 @@ function countWorld() {
     $.each($("#accordion li span"), function () {
         count += Number($(this).text());
         if (count != 0 || count != "") {
-            $("span#worldCount").text(count).fadeIn(1000);
+            $("#worldCount").text(count).fadeIn(1000);
         }
     });
 }
@@ -328,7 +329,8 @@ function determineLocation(respondent) {
 
 
 function initAccordion() {
-    $("#accordion").accordion({
+    var target = $("#accordion");
+    target.accordion({
         fillSpace: true,
         collapsible: true,
         active: false
@@ -339,23 +341,23 @@ function initAccordion() {
     $.each(countries, function () {
         if (userCountry == $(this).text()) {
             if ($(this).parent().attr("id") == "europe") {
-                $("#accordion").accordion({
+                target.accordion({
                     active: 0
                 });
             } else if ($(this).parent().attr("id") == "northAmerica") {
-                $("#accordion").accordion({
+                target.accordion({
                     active: 1
                 });
             } else if ($(this).parent().attr("id") == "southAmerica") {
-                $("#accordion").accordion({
+                target.accordion({
                     active: 2
                 });
             } else if ($(this).parent().attr("id") == "asiaPacific") {
-                $("#accordion").accordion({
+                target.accordion({
                     active: 3
                 });
             } else if ($(this).parent().attr("id") == "africa") {
-                $("#accordion").accordion({
+                target.accordion({
                     active: 4
                 });
             }

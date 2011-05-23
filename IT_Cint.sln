@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IT_Cint", "IT_Cint\IT_Cint.csproj", "{0CD4BFA1-4D5B-4932-ABCC-F0102AA9B776}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IT_Cint.Tests", "IT_Cint.Tests\IT_Cint.Tests.csproj", "{499DE33C-6F87-42A8-B7BF-99435F53DDF5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0CD4BFA1-4D5B-4932-ABCC-F0102AA9B776}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CD4BFA1-4D5B-4932-ABCC-F0102AA9B776}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CD4BFA1-4D5B-4932-ABCC-F0102AA9B776}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0CD4BFA1-4D5B-4932-ABCC-F0102AA9B776}.Release|Any CPU.Build.0 = Release|Any CPU
+		{499DE33C-6F87-42A8-B7BF-99435F53DDF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{499DE33C-6F87-42A8-B7BF-99435F53DDF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{499DE33C-6F87-42A8-B7BF-99435F53DDF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{499DE33C-6F87-42A8-B7BF-99435F53DDF5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

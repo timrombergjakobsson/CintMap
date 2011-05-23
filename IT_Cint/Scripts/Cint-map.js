@@ -24,7 +24,7 @@ function initializeMap() {
 
     // triggers the ajax loader window, more or less ready
     $("#background").bind("document ready", function () {
-        $(this).fadeIn(5E3); $(this).parent().animate({ opacity: 0.5 },
+        $(this).fadeIn(5000); $(this).parent().animate({ opacity: 0.5 },
     "slow", function () { })
     })
     .bind("ajaxSuccess", function () {
@@ -271,7 +271,7 @@ function worldCount() {
         a.html(b.length).digits();
         setTimeout(function () {
             worldCount()
-        }, 1E4)
+        }, 10000    )
     })
 };
 

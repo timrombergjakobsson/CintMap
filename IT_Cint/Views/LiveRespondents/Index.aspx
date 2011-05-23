@@ -7,8 +7,7 @@ Index
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
     <script type="text/javascript">
-        $(window).load(function () {
-
+        $(document).ready(function () {
             initializeMap();
             initAccordion();
             setInterval("getRespondents()", 5000);

@@ -35,13 +35,13 @@ function initializeMap() {
 
 
 
-$("#accordion li").click(function () {
+$("#accordion").find("li").click(function () {
     var country = $(this).text();
     country = country.replace(/\d+/g, '');
     zoomToCountry(country);
 });
 
-$("#accordion h3").click(function () {
+$("#accordion").find("h3").click(function () {
     var continent = $(this).children().text();
     continent = continent.replace(/\d+/g, '');
     zoomToContinent(continent);
@@ -132,7 +132,7 @@ function getCountryCount() {
         if (data && data != "") {
             $("#feedback").fadeOut(1000).removeClass('active');
             $.each(data, function (i, info) {
-                $("#accordion li").text(function (y, countryName) {
+                $("#accordion").find("li").text(function (y, countryName) {
                     var $this = $(this);
                     if ($this.is(":contains(" + info.country + ")")) {
                         if ($this.is(":has(span)")) {
@@ -148,7 +148,7 @@ function getCountryCount() {
                 });
             });
         } else {
-            $("#accordion span").not('.ui-icon').fadeOut(5000);
+            $("#accordion").find("span").not('.ui-icon').fadeOut(5000);
             $("#worldCount").fadeOut(5000);
             $("#feedback").addClass('active').text("No respondents came online in the past 10 minutes").fadeIn(1000);
         }
@@ -160,7 +160,7 @@ function countContinent(ulId) {
     $.each($("ul#" + ulId + " li span"), function () {
         count += Number($(this).text());
         if (count != 0) {
-            $("span#s-" + ulId).text(count).fadeIn(1000);
+            $("span#s-" + ulId).text(count).fadeIn(1000).digits();
         }
     });
 }
@@ -174,6 +174,20 @@ function countWorld() {
         }
     });
 }
+
+$.fn.digits = function () {
+    return this.each(function () {
+        $(this).text($(this).text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+    })
+}
+
+
+function worldCount() {
+    $.get("/LiveRespondents/getCountryCount", function (data) {
+        var a = $("#worldNumbers").find("span");
+        a.html(data.length).digits();
+    })
+};
 
 
 function getRespondents() {
@@ -258,25 +272,8 @@ function getRespondents() {
 
 }
 
-$.fn.digits = function () {
-    return this.each(function () {
-        $(this).text($(this).text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
-    })
-}
-
-
-function worldCount() {
-    $.get("/LiveRespondents/getLiveRespondents", function (b) {
-        var a = $("#worldNumbers span");
-        a.html(b.length).digits();
-        setTimeout(function () {
-            worldCount()
-        }, 10000    )
-    })
-};
-
 function showErrorCount(incompleteAddress) {
-    var ec = $("#errorCount span");
+    var ec = $("#errorCount").find("span");
     if (incompleteAddress && incompleteAddress != "") {
         ec.text(incompleteAddress).fadeIn(100);
     } else{
@@ -336,7 +333,7 @@ function initAccordion() {
         active: false
     });
 
-    var userCountry = $("div#userCountry").html();
+    var userCountry = $("#userCountry").html();
     var countries = $("#accordion ul li");
     $.each(countries, function () {
         if (userCountry == $(this).text()) {

@@ -23,7 +23,7 @@ Index
         </div>
     </div>
     <div id="noScript">
-        <noscript>You don't seem to have javascript turned on, please do so!</noscript>
+        <noscript>For a better experience, please turn on javascript!</noscript>
     </div>
 
     <div id="worldNumbers">

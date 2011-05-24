@@ -17,8 +17,8 @@ namespace IT_Cint.Models
 
             public IQueryable<CountryCount> getRespondentsByCountry(){
                     var query =     from lp in LiveRespondentsDB.LiveRespondents
-                                    .Where(x => x.PushedDatetime > DateTime.UtcNow.AddMinutes(-10))
-                                    .Where(x => x.PushedDatetime <= DateTime.UtcNow)
+                                    //.Where(x => x.PushedDatetime > DateTime.UtcNow.AddMinutes(-10))
+                                    //.Where(x => x.PushedDatetime <= DateTime.UtcNow)
                                     group lp by lp.CountryName into grp
                                     select new CountryCount{ 
                                         country = grp.Key, 

@@ -22,7 +22,7 @@ namespace IT_Cint.Models
         public IQueryable<LiveRespondent> showLiveRespondents()
         {
             var r = db.LiveRespondents
-                .Where(x => x.PushedDatetime > DateTime.UtcNow.AddSeconds(-5))
+                 //.Where(x => x.PushedDatetime > DateTime.UtcNow.AddSeconds(-5))
                 .OrderBy(x => x.PushedDatetime);
             return r;
 

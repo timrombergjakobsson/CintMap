@@ -33,7 +33,10 @@ function initializeMap() {
     .animate({ opacity: 2 }, "slow", function () { })
     });
 
-
+    console.time('profile');
+    for (var i = 0; i < 100000; i++) {
+    }
+    console.timeEnd('profile');
 
 $("#accordion").find("li").click(function () {
     var country = $(this).text();
@@ -116,15 +119,15 @@ function setAge(age) {
     return respAge;
 }
 
-function setFirstName(firstName) {
-    var respFirstName;
-    if (firstName == null || firstName == "") {
-        respFirstName = "Respondent";
-    } else {
-        respFirstName = firstName;
+    function setFirstName(firstName) {
+        var respFirstName;
+        if (firstName == null || firstName == "") {
+            respFirstName = "Respondent";
+        } else {
+            respFirstName = firstName;
+        }
+        return respFirstName;
     }
-    return respFirstName;
-}
 
 
 function getCountryCount() {
@@ -133,6 +136,7 @@ function getCountryCount() {
             $("#feedback").fadeOut(1000).removeClass('active');
             $.each(data, function (i, info) {
                 $("#accordion").find("li").text(function (y, countryName) {
+
                     var $this = $(this);
                     if ($this.is(":contains(" + info.country + ")")) {
                         if ($this.is(":has(span)")) {
@@ -181,13 +185,15 @@ $.fn.digits = function () {
     })
 }
 
-
 function worldCount() {
-    $.get("/LiveRespondents/getCountryCount", function (data) {
-        var a = $("#worldNumbers").find("span");
-        a.html(data.length).digits();
+    $.get("/LiveRespondents/getLiveRespondents", function (data) {
+        if (data != 0) {
+            var target = $("#worldNumbers").find("span");
+            target.html(data.length).digits();
+        } 
     })
 };
+
 
 
 function getRespondents() {
@@ -272,27 +278,28 @@ function getRespondents() {
 
 }
 
-function showErrorCount(incompleteAddress) {
-    var ec = $("#errorCount").find("span");
-    if (incompleteAddress && incompleteAddress != "") {
-        ec.text(incompleteAddress).fadeIn(100);
-    } else{
-        ec.text("0");
+    function showErrorCount(incompleteAddress) {
+        var ec = $("#errorCount").find("span");
+        if (incompleteAddress && incompleteAddress != "") {
+            ec.text(incompleteAddress).fadeIn(100);
+        } else {
+            ec.text("0");
+        }
     }
-}
 
-function clearMarkers(ib) {
-    if (markersArray) {
-        $.each(markersArray, function (i, marker) {
-            setTimeout(function () {
-                marker.setMap(null);
-                if (ib) {
-                    ib.close(map, marker);
-                }
-            }, 6000);
-        });        
+
+    function clearMarkers(ib) {
+        if (markersArray) {
+            $.each(markersArray, function (i, marker) {
+                setTimeout(function () {
+                    marker.setMap(null);
+                    if (ib) {
+                        ib.close(map, marker);
+                    }
+                }, 6000);
+            });
+        }
     }
-}
 
 
 function moveToZone(marker) {
@@ -303,27 +310,26 @@ function moveToZone(marker) {
 }
 
 
-function determineLocation(respondent) {
-    var loc;
+    function determineLocation(respondent) {
+        var loc;
 
-    if (respondent.Address == null || respondent.CountryName == null) {
-        if (respondent.Address == null && respondent.CountryName != null) {
-            loc = respondent.CountryName + " " + respondent.PostalCode;
+        if (respondent.Address == null || respondent.CountryName == null) {
+            if (respondent.Address == null && respondent.CountryName != null) {
+                loc = respondent.CountryName + " " + respondent.PostalCode;
+            }
+            else if (respondent.CountryName == null && respondent.Address != null) {
+                loc = respondent.Address + " " + respondent.PostalCode;
+            }
+            else {
+                //getting geoloc by zip code only is not always generating a correct position on map! to be avoided!
+                loc = respondent.PostalCode + "";
+            }
+        } else {
+            loc = respondent.Address + " " + respondent.CountryName + " " + respondent.PostalCode;
         }
-        else if (respondent.CountryName == null && respondent.Address != null) {
-            loc = respondent.Address + " " + respondent.PostalCode;
-        }
-        else {
-            //getting geoloc by zip code only is not always generating a correct position on map! to be avoided!
-            loc = respondent.PostalCode + "";
-        }
-    } else {
-        loc = respondent.Address + " " + respondent.CountryName + " " + respondent.PostalCode;
+
+        return loc;
     }
-
-    return loc;
-}
-
 
 function initAccordion() {
     var target = $("#accordion");
@@ -332,7 +338,6 @@ function initAccordion() {
         collapsible: true,
         active: false
     });
-
     var userCountry = $("#userCountry").html();
     var countries = $("#accordion ul li");
     $.each(countries, function () {
@@ -361,3 +366,4 @@ function initAccordion() {
         }
     });
 }
+

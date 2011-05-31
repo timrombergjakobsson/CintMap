@@ -19,20 +19,30 @@ function initializeMap() {
     google.maps.event.addListener(map, 'zoom_changed', function () {
         if (map.minZoom === map.zoom) {
             map.setCenter(myLatlng);
+            
         }
     });
 
-    // triggers the ajax loader window, more or less ready
-    $("#background").bind("document ready", function () {
-        $(this).fadeIn(5000); $(this).parent().animate({ opacity: 0.5 },
-    "slow", function () { })
-    })
-    .bind("ajaxSuccess", function () {
-        $(this).fadeOut("slow");
-        $(this).parent()
-    .animate({ opacity: 2 }, "slow", function () { })
-    });
-
+    
+   // triggers the ajax loader window, more or less ready
+   var my_func = (function () {
+        var backG = $("#background");
+        $(backG).bind("document ready", function () {
+            backG.hide()
+            backG.fadeIn(5000);
+        })
+        .bind("ajaxSuccess", function () {
+            $(this).remove();
+            $(this).parent()
+        });
+    })();
+    
+    
+    /*$when(my_func()).done(function () {
+        my_func.remove();
+    });*/
+ 
+  
     console.time('profile');
     for (var i = 0; i < 100000; i++) {
     }
@@ -186,16 +196,26 @@ $.fn.digits = function () {
 }
 
 function worldCount() {
-    $.get("/LiveRespondents/getLiveRespondents", function (data) {
+    return $.get("/LiveRespondents/getLiveRespondents", function (data) {
         if (data != 0) {
             var target = $("#worldNumbers").find("span");
             target.html(data.length).digits();
-        } 
+            
+        }
     })
 };
 
+(function () {
+    $.when(worldCount())
+    .then(function () {
+        getRespondents();
+    })
+    .fail(function () {
+        alert('I just failed');
+    });
+})();
 
-
+ 
 function getRespondents() {
     var currentTime = new Date().getTime();
     var geocoder = new google.maps.Geocoder();

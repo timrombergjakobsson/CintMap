@@ -111,6 +111,7 @@
     <Content Include="Content\images\ui-icons_ffffff_256x240.png" />
     <Content Include="Content\jquery-ui-1.8.11.custom.css" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\ajaxHandler.js" />
     <Content Include="Scripts\Cint-map.js" />
     <Content Include="Scripts\infoBox.js" />
     <Content Include="Scripts\accordion.min.js" />

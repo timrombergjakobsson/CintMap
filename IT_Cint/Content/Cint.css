@@ -353,7 +353,7 @@ span.continentCount, span#worldCount
 #ajax-message .loading 
 {
     background: rgb(0, 0, 0);
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.7);
     filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80); /* IE6+ */
     width: 400px;
     height: 100px;

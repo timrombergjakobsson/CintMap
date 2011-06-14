@@ -23,9 +23,9 @@ function initializeMap() {
         }
     });
 
-    
+        
    // triggers the ajax loader window, more or less ready
-   var my_func = (function () {
+    var my_func = (function () {
         var backG = $("#background");
         $(backG).bind("document ready", function () {
             backG.hide()
@@ -37,10 +37,6 @@ function initializeMap() {
         });
     })();
     
-    
-    /*$when(my_func()).done(function () {
-        my_func.remove();
-    });*/
  
   
     console.time('profile');
@@ -156,10 +152,8 @@ function getCountryCount() {
                             $this.append('<span class = "countryCount">' + info.count + '</span>');
                         }
                     }
-
                     countContinent($this.parent().attr('id'));
                     countWorld();
-                    worldCount();
                 });
             });
         } else {
@@ -180,43 +174,23 @@ function countContinent(ulId) {
     });
 }
 
-function countWorld() {
-    var count = 0;
-    $.each($("#accordion li span"), function () {
-        count += Number($(this).text());
-        if (count != 0 || count != "") {
-            $("#worldCount").text(count).fadeIn(1000);
-        }
-    });
-}
-
 $.fn.digits = function () {
     return this.each(function () {
         $(this).text($(this).text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
     })
 }
 
-function worldCount() {
+function countWorld() {
     var count = 0;
-    return $.get("/LiveRespondents/getLiveRespondents", function (data) {
-        if (data != 0) {
+    $.each($("#accordion li span"), function () {
+        count += Number($(this).text());
+        if (count != 0 || count != "") {
+            $("#worldCount").text(count).fadeIn(1000);
             var target = $("#worldNumbers").find("span");
-            target.html(data.length).digits();
-            
+            target.text(count).fadeIn(1000).digits();
         }
-    })
-};
-
-/*(function () {
-    $.when(worldCount())
-    .then(function () {
-        getRespondents();
-    })
-    .fail(function () {
-        alert('I just failed');
     });
-})();*/
-
+}
  
 function getRespondents() {
     var currentTime = new Date().getTime();

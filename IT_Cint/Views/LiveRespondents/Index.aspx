@@ -12,7 +12,6 @@ Index
             initAccordion();
             setInterval("getRespondents()", 5000);
             setInterval("getCountryCount()", 3000);
-            worldCount();
 
         });
     </script>

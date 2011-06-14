@@ -159,6 +159,7 @@ function getCountryCount() {
 
                     countContinent($this.parent().attr('id'));
                     countWorld();
+                    worldCount();
                 });
             });
         } else {
@@ -196,6 +197,7 @@ $.fn.digits = function () {
 }
 
 function worldCount() {
+    var count = 0;
     return $.get("/LiveRespondents/getLiveRespondents", function (data) {
         if (data != 0) {
             var target = $("#worldNumbers").find("span");
@@ -205,7 +207,7 @@ function worldCount() {
     })
 };
 
-(function () {
+/*(function () {
     $.when(worldCount())
     .then(function () {
         getRespondents();
@@ -213,7 +215,7 @@ function worldCount() {
     .fail(function () {
         alert('I just failed');
     });
-})();
+})();*/
 
  
 function getRespondents() {

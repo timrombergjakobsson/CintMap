@@ -36,13 +36,12 @@ function initializeMap() {
             $(this).parent()
         });
     })();
-    
- 
+
   
-    console.time('profile');
+    /*console.time('profile');
     for (var i = 0; i < 100000; i++) {
     }
-    console.timeEnd('profile');
+    console.timeEnd('profile');*/
 
 $("#accordion").find("li").click(function () {
     var country = $(this).text();
